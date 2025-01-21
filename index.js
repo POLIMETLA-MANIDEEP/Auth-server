@@ -79,6 +79,11 @@ const renewToken = (req, res) => {
     return exist;
 }
 
+app.get('/getuser',async(req,res)=>{
+    const response = await StudentModel.find({});
+    res.status(200).send(response);
+})
+
 app.get('/dashboard', verifyUser, (req, res) => {
     return res.json({ valid: true, message: "Authorized" })
 })
