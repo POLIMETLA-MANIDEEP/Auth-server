@@ -27,14 +27,14 @@ app.post('/login', (req, res) => {
     StudentModel.findOne({ email }).then(user => {
         if (user) {
             if (user.password === password) {
-                const accessToken = jwt.sign({ email: email }, "jwt-access-token-secret-key", { expiresIn: '1m' })
-                const refreshToken = jwt.sign({ email: email }, "jwt-refresh-token-secret-key", { expiresIn: '5m' })
+                const accessToken = jwt.sign({ email: email }, "jwt-access-token-secret-key", { expiresIn: '15m' })
+                const refreshToken = jwt.sign({ email: email }, "jwt-refresh-token-secret-key", { expiresIn: '7d' })
                 res.cookie('accessToken', accessToken, { maxAge: 60000 })
                 res.cookie('refreshToken', refreshToken, { maxAge: 300000, httpOnly: true, secure: true, sameSite: 'strict' })
-                return res.json({ Login: true })
+                return res.json({user , message : "Logged in successfully"})
             }
         } else {
-            res.json({ Login: false, Message: "No record found" })
+            res.json({ message: "Invalid credentials" })
         }
     }).catch(err => res.json(err))
 })
