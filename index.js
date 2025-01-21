@@ -7,13 +7,10 @@ const StudentModel = require('./Student.js')
 
 const app = express()
 app.use(express.json())
-app.use(cors({
-    origin: ['http://localhost:5173'],
-    credentials: true
-}))
+app.use(cors())
 app.use(cookieParser());
 
-mongoose.connect('mongodb+srv://chinnu6749:Manideep1245@cluster0.depwb.mongodb.net/it').then(() => {
+mongoose.connect(process.env.MONGO_URI).then(() => {
     console.log("DB is connected")
 }).catch((err) => {
     console.log(err)
