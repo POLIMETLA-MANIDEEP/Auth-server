@@ -39,7 +39,7 @@ app.post('/login', (req, res) => {
     }).catch(err => res.json(err))
 })
 
-const verifyUser = (req, res, next) => {
+const verifyUser = (req, res , next) => {
     const accessToken = req.cookies.accessToken;
     if (!accessToken) {
         if (renewToken(req, res)) {
@@ -56,6 +56,14 @@ const verifyUser = (req, res, next) => {
         })
     }
 }
+
+app.get('/verify', (req,res)=>{
+    const accessToken = req.cookies.accessToken;
+    if(accessToken){
+        return res.status(200).json({"success" : true})
+    }
+        return res.status(401).json({"message" : "unauthorised"})
+})
 
 const renewToken = (req, res) => {
     const refreshToken = req.cookies.refreshToken;
