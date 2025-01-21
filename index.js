@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
-const StudentModel = require('./models/Student.js')
+const StudentModel = require('./Student.js')
 
 const app = express()
 app.use(express.json())
